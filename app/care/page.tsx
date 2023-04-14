@@ -5,11 +5,9 @@ import Link from 'next/link'
 export default function Care() {
   return (
     <main>
-      <div className={styles.grid}>
-        <Link href="/" className="button">
-          Back
-        </Link>
-      </div>
+      <header>
+        <Link href="/">{`↩ Back`}</Link>
+      </header>
 
       <div className={styles.center}>
         {/* TODO: Replace with NFT uri */}

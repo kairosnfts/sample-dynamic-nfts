@@ -2,8 +2,12 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  width: var(--max-width);
-  max-width: 80%;
+}
+
+@media screen and (max-width: 450px) {
+  .buttonCont {
+    flex-direction: column;
+  }
 }
 
 .center {
@@ -11,7 +15,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 4rem 0;
+  flex: 1;
 }
 
 .logo {
