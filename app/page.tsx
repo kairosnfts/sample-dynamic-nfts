@@ -20,10 +20,10 @@ export default function Home() {
       <div className={styles.buttonCont}>
         {/* TODO: if not logged in, show connect button */}
         <Link href="/care" className="button">
-          Care
+          Tend to Your Bonsai
         </Link>
 
-        <Link href="/plant" className="button">
+        <Link href="/plant" className="button alt">
           Purchase Seed
         </Link>
       </div>
