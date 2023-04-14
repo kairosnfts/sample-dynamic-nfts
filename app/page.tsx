@@ -3,26 +3,29 @@ import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main>
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
+          src="/images/bonsai.png"
+          alt="Bonsai tree"
+          width={512}
+          height={512}
           priority
         />
       </div>
 
-      <div className={styles.grid}>
-        <Link href="">Connect</Link>
+      <div className={styles.buttonCont}>
+        {/* TODO: if not logged in, show connect button */}
+        <Link href="/care" className="button">
+          Care
+        </Link>
 
-        <Link href="/plant">Purchase Seed</Link>
+        <Link href="/plant" className="button">
+          Purchase Seed
+        </Link>
       </div>
     </main>
   )

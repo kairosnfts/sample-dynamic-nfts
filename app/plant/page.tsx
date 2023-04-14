@@ -1,30 +1,30 @@
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Plant() {
   return (
-    <main className={styles.main}>
+    <main>
       <div className={styles.grid}>
-        <Link href="/">Back</Link>
+        <Link href="/" className="button">
+          Back
+        </Link>
       </div>
 
       <div className={styles.center}>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
+          src="/images/seed-packet.png"
+          alt="Packet of seeds"
+          width={512}
+          height={512}
           priority
         />
       </div>
 
       <div className={styles.grid}>
-        <Link href="">Purchase Seed</Link>
+        <Link href="" className="button">
+          Buy and Plant
+        </Link>
       </div>
     </main>
   )
