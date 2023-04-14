@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Care() {
   return (
     <main className={styles.main}>
       <div className={styles.center}>
@@ -20,9 +20,7 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        <Link href="">Connect</Link>
-
-        <Link href="/plant">Purchase Seed</Link>
+        <Link href="">Water</Link>
       </div>
     </main>
   )
