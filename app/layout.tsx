@@ -1,5 +1,7 @@
+import KairosProvider from '@/context/KairosContext'
 import { Kaushan_Script } from 'next/font/google'
 import './globals.css'
+import KairosScript from './kairosScript'
 
 export const metadata = {
   title: 'Bonsai ~ Dynamic NFT App',
@@ -16,7 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={kaushan.className}>
-      <body>{children}</body>
+      <body>
+        <KairosProvider>
+          <KairosScript />
+          {children}
+        </KairosProvider>
+      </body>
     </html>
   )
 }
