@@ -4,25 +4,19 @@ import CareButton from './CareButton'
 
 export default function Care() {
   return (
-    <>
-      <header>
-        <Link href="/">↩ Back</Link>
-      </header>
+    <main>
+      <div className="center">
+        {/* TODO: Replace with NFT uri */}
+        <Image
+          src="/images/mature.png"
+          alt="Your bonsai tree"
+          width={512}
+          height={512}
+          priority
+        />
+      </div>
 
-      <main>
-        <div className="center">
-          {/* TODO: Replace with NFT uri */}
-          <Image
-            src="/images/mature.png"
-            alt="Your bonsai tree"
-            width={512}
-            height={512}
-            priority
-          />
-        </div>
-
-        <CareButton />
-      </main>
-    </>
+      <CareButton />
+    </main>
   )
 }

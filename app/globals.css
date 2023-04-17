@@ -47,6 +47,7 @@ button {
   font-weight: 600;
   font-family: inherit;
   font-size: var(--font-size);
+  text-align: center;
 }
 
 a.button[disabled],
@@ -54,16 +55,25 @@ button[disabled] {
   opacity: 0.5;
 }
 
+a.button.noStyle,
+button.noStyle {
+  background: none;
+  padding: 0;
+  color: var(--primary-color);
+  font-weight: 400;
+}
+
 a.button.alt {
   padding: 0.5rem 2rem;
   background-image: url('/images/brush-stroke-alt.svg');
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 2rem;
+img,
+svg {
+  max-width: 100%;
+  max-height: 50vh;
+  width: auto;
+  height: auto;
 }
 
 main {
@@ -75,14 +85,6 @@ main {
   flex: 1;
   padding: 2rem;
   max-width: var(--max-width);
-}
-
-img,
-svg {
-  max-width: 100%;
-  max-height: 50vh;
-  width: auto;
-  height: auto;
 }
 
 .center {
