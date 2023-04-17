@@ -19,7 +19,7 @@ export default function Home() {
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/images/bonsai.png"
+          src="/images/mature.png"
           alt="Bonsai tree"
           width={512}
           height={512}

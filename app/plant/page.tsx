@@ -6,7 +6,7 @@ export default function Plant() {
   return (
     <main>
       <header>
-        <Link href="/">{`↩ Back`}</Link>
+        <Link href="/">↩ Back</Link>
       </header>
 
       <div className={styles.center}>
