@@ -1,3 +1,7 @@
+.logo {
+  position: relative;
+}
+
 .buttonCont {
   display: flex;
   justify-content: center;
@@ -8,16 +12,4 @@
   .buttonCont {
     flex-direction: column;
   }
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  flex: 1;
-}
-
-.logo {
-  position: relative;
 }

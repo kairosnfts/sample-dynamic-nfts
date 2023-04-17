@@ -1,10 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 import Link from 'next/link'
-import { MouseEventHandler, useContext } from 'react'
+import { useContext } from 'react'
 import { KairosContext } from '@/context/KairosContext'
 
 export default function Home() {
@@ -16,9 +15,8 @@ export default function Home() {
 
   return (
     <main>
-      <div className={styles.center}>
+      <div className="center">
         <Image
-          className={styles.logo}
           src="/images/mature.png"
           alt="Bonsai tree"
           width={512}
