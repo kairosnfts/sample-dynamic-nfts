@@ -49,6 +49,11 @@ button {
   font-size: var(--font-size);
 }
 
+a.button[disabled],
+button[disabled] {
+  opacity: 0.5;
+}
+
 a.button.alt {
   padding: 0.5rem 2rem;
   background-image: url('/images/brush-stroke-alt.svg');
