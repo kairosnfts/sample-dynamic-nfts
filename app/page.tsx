@@ -1,18 +1,9 @@
-'use client'
-
 import Image from 'next/image'
 import styles from './page.module.css'
 import Link from 'next/link'
-import { useContext } from 'react'
-import { KairosContext } from '@/context/KairosContext'
+import ConnectButton from './ConnectButton'
 
 export default function Home() {
-  const { isLoggedIn } = useContext(KairosContext)
-
-  const onLogInClick = async () => {
-    await window.Kairos.logIn()
-  }
-
   return (
     <main>
       <div className="center">
@@ -26,16 +17,7 @@ export default function Home() {
       </div>
 
       <div className={styles.buttonCont}>
-        {!isLoggedIn && (
-          <Link href="/" className="button" onClick={onLogInClick}>
-            Log in
-          </Link>
-        )}
-        {isLoggedIn && (
-          <Link href="/care" className="button">
-            Tend to Your Bonsai
-          </Link>
-        )}
+        <ConnectButton />
 
         <Link href="/plant" className="button alt">
           Purchase Seed
