@@ -3,13 +3,13 @@
 import useSWRMutation from 'swr/mutation'
 
 const fetchNftId = async () => {
-  return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/create`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/nft`, {
     method: 'POST',
   }).then((res) => res.json())
 }
 
 export default function BuyButton() {
-  const { trigger, isMutating } = useSWRMutation('/api/create', fetchNftId)
+  const { trigger, isMutating } = useSWRMutation('/api/nft', fetchNftId)
 
   const handleClick = async () => {
     const result = await trigger()

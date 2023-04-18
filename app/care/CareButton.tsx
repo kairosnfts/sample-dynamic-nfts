@@ -11,8 +11,8 @@ const updateMetadata = async ({
   description: string
   uri: string
 }) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/update`, {
-    method: 'POST',
+  return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/nft`, {
+    method: 'PATCH',
     body: JSON.stringify({
       nftId,
       description,
