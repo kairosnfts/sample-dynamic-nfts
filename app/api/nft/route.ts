@@ -130,6 +130,9 @@ export async function POST(req: Request) {
   return NextResponse.json({ nftId: createData.nft.id })
 }
 
+// We use GraphQL queries to interact with the Kairos API
+// You can learn more about GraphQL language here: https://graphql.org/learn/
+
 export const UpdateMetadataQuery = gql`
   mutation UpdateDynamicMetadata($input: UpdateDynamicMetadataInput!) {
     updateDynamicMetadata(input: $input)
