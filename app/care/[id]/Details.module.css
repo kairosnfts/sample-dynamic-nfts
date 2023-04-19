@@ -31,8 +31,6 @@
 }
 
 .bonsai {
-  display: flex;
-  justify-content: flex-end;
   width: 50%;
 }
 
@@ -40,9 +38,4 @@
   .bonsai {
     width: 100%;
   }
-}
-
-.bonsai img {
-  width: auto;
-  max-height: 100%;
 }

@@ -13,7 +13,12 @@ export default function Home() {
           width={512}
           height={512}
           priority
+          className="featured"
         />
+      </div>
+
+      <div className={styles.helperCont}>
+        <p>Grow a bonsai plant on-chain! Start by purchasing seeds to plant.</p>
       </div>
 
       <div className={styles.buttonCont}>

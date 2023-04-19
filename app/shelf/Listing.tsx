@@ -31,7 +31,7 @@ export default function Listing() {
         {data.map((bonsai: Nft) => (
           <Link
             key={bonsai.id}
-            className={styles.bonsai}
+            className={`${styles.bonsai} noStyle`}
             href={`/care/${bonsai.id}`}
           >
             <Image
