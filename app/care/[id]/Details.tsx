@@ -56,6 +56,7 @@ export default function Details() {
           width={512}
           height={512}
           priority
+          className="featured"
         />
       </div>
       <div className={styles.details}>

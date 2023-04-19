@@ -24,7 +24,7 @@ export default function Navigation() {
       <div className={styles.navItem}>
         <Link
           href="https://kairos.art"
-          className={styles.poweredBy}
+          className={`${styles.poweredBy} noStyle`}
           target="_blank"
         >
           Powered by
