@@ -1,7 +1,9 @@
 'use client'
 
+import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
+import { Nft } from '../../api/nft/helpers'
 
 const fetchNft = async () => {
   return await fetch('/api/nft', {
@@ -20,14 +22,14 @@ const updateMetadata = async (
 }
 
 export default function CareButton() {
+  const { id } = useParams()
   const { data } = useSWR('/api/nft', fetchNft)
-  // TODO: Handle multiple NFTs
-  const nftId = data && data[0].id
+  const bonsai = data && data.find((nft: Nft) => nft.id === id)
 
   const { trigger, isMutating } = useSWRMutation('/api/nft', updateMetadata)
 
   const handleClick = () => {
-    trigger({ nftId })
+    trigger({ nftId: bonsai?.id })
   }
 
   return (

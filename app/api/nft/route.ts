@@ -56,14 +56,16 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
    * In our example of a Bonsai NFT, we have a linear progression of tree stages.
    * You can provide your own logic here to determine the next stage of your NFT
    */
-  let nextStage = getNextStage(nft.nft)
+  let nextStage
+  if (reset) {
+    nextStage = TreeStage.SEED
+  } else {
+    nextStage = getNextStage(nft.nft)
+  }
+
   if (!nextStage) {
     // No more progression. We're at the last stage
-    if (reset) {
-      nextStage = TreeStage.SEED
-    } else {
-      return NextResponse.json({ nftId })
-    }
+    return NextResponse.json({ nftId })
   }
 
   const date = new Date()

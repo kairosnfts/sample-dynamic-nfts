@@ -41,7 +41,7 @@ export default function BuyButton() {
     if (bid.code === 'SUCCESS') {
       setTimeout(() => {
         window.Kairos.close() // Close the Kairos modal or it will stay open after redirect
-        router.push('/care')
+        router.push('/shelf')
       }, 1000) // Show confirmation box for a second before redirecting
     }
   }

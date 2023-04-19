@@ -15,7 +15,7 @@ export default function Home() {
   if (isLoginLoading) return <div className={styles.loading}>Loading...</div>
 
   return isLoggedIn ? (
-    <Link href="/care" className="button">
+    <Link href="/shelf" className="button">
       Nurture
     </Link>
   ) : (
