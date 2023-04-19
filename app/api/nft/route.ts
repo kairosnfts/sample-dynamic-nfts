@@ -1,72 +1,69 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { request, gql } from 'graphql-request'
+import { request } from 'graphql-request'
 import {
-  NftName,
-  NftDescription,
-  NftPrice,
-  TreeStage,
-  StageDescription,
-  StageImage,
+  nftName,
+  nftDescription,
+  nftPrice,
+  stageDescription,
+  stageImage,
 } from './data'
-
-const auth = `Basic ${Buffer.from(
-  process.env.KAIROS_API_KEY! // Keep this secret from the client!
-).toString('base64')}`
+import {
+  auth,
+  getNftsOfUser,
+  getNextStage,
+  UpdateMetadataQuery,
+  CreateNftQuery,
+  DeployNftQuery,
+} from './helpers'
 
 /**
  * This is the route will return all the NFTs and their metadata that the user owns
- *
- * @param req
- * @returns [{ name, id, __typename, metadataPatch {...} }]
  */
-export async function GET(req: NextRequest) {
-  const sessionToken = await req.cookies.get('__kairosSessionToken')?.value
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  const sessionToken = req.cookies.get('__kairosSessionToken')?.value
   if (!sessionToken) {
     throw new Error('No session token found')
   }
 
-  const data: any = await request(
-    process.env.NEXT_PUBLIC_KAIROS_API_URL!,
-    OwnershipsQuery,
-    {
-      collectionId: process.env.KAIROS_COLLECTION_ID,
-      sessionToken: sessionToken,
-    },
-    {
-      Authorization: auth,
-    }
-  )
+  const nfts = await getNftsOfUser(sessionToken)
 
-  if (!data.collectorOwnershipsByCollection) {
-    throw new Error('No NFTs found')
-  }
-
-  return NextResponse.json(
-    data.collectorOwnershipsByCollection.map((d: any) => d.nft)
-  )
+  return NextResponse.json(nfts.map((d: any) => d.nft))
 }
 
 /**
  * This is the route that will be called when you want to update an NFT's metadata
  * this will not redeploy the NFT, it will only update the content of the metadata
  * without having to make any transaction on the blockchain
- *
- * @param req
- * @returns { nftId }
  */
-export async function PATCH(req: NextRequest) {
+export async function PATCH(req: NextRequest): Promise<NextResponse> {
   const body = await req.json()
   const { nftId } = body
+
+  const sessionToken = req.cookies.get('__kairosSessionToken')?.value
+  if (!sessionToken) {
+    throw new Error('No session token found')
+  }
+
+  const nfts = await getNftsOfUser(sessionToken)
+  // Find the NFT among all NFTs this user owns that we want to update by its ID
+  const nft = nfts.find((d: any) => d.nft.id === nftId)
+  if (!nft) {
+    throw new Error('NFT not found')
+  }
+
+  /**
+   * In our example of a Bonsai NFT, we have a linear progression of tree stages.
+   * You can provide your own logic here to determine the next stage of your NFT
+   */
+  const nextStage = getNextStage(nft.nft)
+  if (!nextStage) {
+    // No more progression. We're at the last stage
+    return NextResponse.json({ nftId })
+  }
 
   const date = new Date()
   const niceDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}
   ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-
-  // Get a random stage from TreeStage enum
-  const randomStage =
-    Object.values(TreeStage)[
-      Math.floor(Math.random() * Object.values(TreeStage).length)
-    ]
 
   await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
@@ -81,16 +78,16 @@ export async function PATCH(req: NextRequest) {
          * NFT, or adding new attributes
          */
         metadataPatch: {
-          image: StageImage[randomStage],
+          image: stageImage[nextStage],
           attributes: [
             // You can add as many attributes as you want
             {
               trait_type: 'Bonsai Stage',
-              value: randomStage,
+              value: nextStage,
             },
             {
               trait_type: 'Description',
-              value: StageDescription[randomStage],
+              value: stageDescription[nextStage],
             },
             {
               trait_type: 'Last Maintained',
@@ -110,11 +107,8 @@ export async function PATCH(req: NextRequest) {
 /**
  * This is the route that will be called when the user clicks the "Create NFT" button
  * It will create an NFT on the Kairos server and deploy it (not mint yet)
- *
- * @param req
- * @returns { nftId }
  */
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse> {
   /**
    * STEP 1 - Create an NFT on the Kairos server
    */
@@ -123,10 +117,10 @@ export async function POST(req: Request) {
     CreateNftQuery,
     {
       input: {
-        name: NftName,
-        description: NftDescription,
+        name: nftName,
+        description: nftDescription,
         collectionId: process.env.KAIROS_COLLECTION_ID, // Keep this secret from the client!
-        price: NftPrice, // The price of the NFT (on-chain native currency)
+        price: nftPrice, // The price of the NFT (on-chain native currency)
       },
     },
     {
@@ -158,79 +152,4 @@ export async function POST(req: Request) {
   )
 
   return NextResponse.json({ nftId: createData.nft.id })
-}
-
-/**
- * We use GraphQL queries to interact with the Kairos API
- * You can learn more about GraphQL language here: https://graphql.org/learn/
- */
-const UpdateMetadataQuery = gql`
-  mutation UpdateDynamicMetadata($input: UpdateDynamicMetadataInput!) {
-    updateDynamicMetadata(input: $input)
-  }
-`
-
-const CreateNftQuery = gql`
-  mutation CreateOneOfOneNft($input: CreateOneOfOneNftInput!) {
-    createOneOfOneNft(input: $input) {
-      ... on CreateNftRes {
-        nft {
-          id
-        }
-      }
-      ... on CreateOneOfOneNftError {
-        message
-      }
-      __typename
-    }
-  }
-`
-const DeployNftQuery = gql`
-  mutation DeployNft($input: DeployNftInput!) {
-    deployNft(input: $input) {
-      __typename
-    }
-  }
-`
-
-const OwnershipsQuery = gql`
-  query CollectorOwnershipsByCollection(
-    $collectionId: UUID!
-    $sessionToken: String!
-  ) {
-    collectorOwnershipsByCollection(
-      collectionId: $collectionId
-      sessionToken: $sessionToken
-    ) {
-      id
-      nft {
-        name
-        id
-        __typename
-        metadataPatch {
-          image
-          attributes {
-            trait_type
-            value
-          }
-          description
-        }
-      }
-      __typename
-    }
-  }
-`
-
-export type Nft = {
-  name: string
-  id: string
-  __typename: string
-  metadataPatch: {
-    image: string
-    attributes: {
-      trait_type: string
-      value: string
-    }[]
-    description: string
-  }
 }
