@@ -6,6 +6,7 @@ import {
   nftPrice,
   stageDescription,
   stageImage,
+  TreeStage,
 } from './data'
 import {
   auth,
@@ -37,7 +38,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
  */
 export async function PATCH(req: NextRequest): Promise<NextResponse> {
   const body = await req.json()
-  const { nftId } = body
+  const { nftId, reset } = body
 
   const sessionToken = req.cookies.get('__kairosSessionToken')?.value
   if (!sessionToken) {
@@ -55,15 +56,24 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
    * In our example of a Bonsai NFT, we have a linear progression of tree stages.
    * You can provide your own logic here to determine the next stage of your NFT
    */
-  const nextStage = getNextStage(nft.nft)
+  let nextStage = getNextStage(nft.nft)
   if (!nextStage) {
     // No more progression. We're at the last stage
-    return NextResponse.json({ nftId })
+    if (reset) {
+      nextStage = TreeStage.SEED
+    } else {
+      return NextResponse.json({ nftId })
+    }
   }
 
   const date = new Date()
-  const niceDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}
-  ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const year = date.getFullYear()
+  const hour = date.getHours().toString().padStart(2, '0')
+  const minute = date.getMinutes().toString().padStart(2, '0')
+  const second = date.getSeconds().toString().padStart(2, '0')
+  const niceDate = `${month}/${day}/${year} ${hour}:${minute}:${second}`
 
   await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
@@ -90,7 +100,7 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
               value: stageDescription[nextStage],
             },
             {
-              trait_type: 'Last Maintained',
+              trait_type: 'Last Cultivated On',
               value: niceDate,
             },
           ],
