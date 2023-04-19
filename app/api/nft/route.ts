@@ -7,11 +7,8 @@ const auth = `Basic ${Buffer.from(
 
 /**
  * This is the route will return all the NFTs and their metadata that the user owns
- *
- * @param req
- * @returns
  */
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   const sessionToken = await req.cookies.get('__kairosSessionToken')?.value
   if (!sessionToken) {
     throw new Error('No session token')
@@ -42,11 +39,8 @@ export async function GET(req: NextRequest) {
  * This is the route that will be called when you want to update an NFT's metadata
  * this will not redeploy the NFT, it will only update the content of the metadata
  * without having to make any transaction on the blockchain
- *
- * @param req
- * @returns
  */
-export async function PATCH(req: NextRequest) {
+export async function PATCH(req: NextRequest): Promise<NextResponse> {
   const body = await req.json()
   const { nftId, description, uri } = body
 
@@ -84,12 +78,11 @@ export async function PATCH(req: NextRequest) {
 /**
  * This is the route that will be called when the user clicks the "Create NFT" button
  * It will create an NFT on the Kairos server and deploy it (not mint yet)
- *
- * @param req
- * @returns
  */
-export async function POST(req: Request) {
-  // STEP 1 - Create an NFT on the Kairos server
+export async function POST(req: Request): Promise<NextResponse> {
+  /**
+   * STEP 1 - Create an NFT on the Kairos server
+   */
   const createResponse: any = await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
     CreateNftQuery,
