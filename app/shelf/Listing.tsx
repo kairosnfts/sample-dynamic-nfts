@@ -26,7 +26,7 @@ export default function Listing() {
 
   return (
     <div className={styles.shelfContainer}>
-      <h1 className="pageTitle">Your Bonsai</h1>
+      <h1 className="pageTitle">Your Bonsai Collection</h1>
       <div className={styles.shelf}>
         {data.map((bonsai: Nft) => (
           <Link

@@ -3,7 +3,7 @@
   align-items: stretch;
   justify-content: center;
   gap: 2rem;
-  max-height: 50vh;
+  margin-bottom: 2rem;
 }
 
 @media (max-width: 768px) {
@@ -32,10 +32,18 @@
 
 .bonsai {
   width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
   .bonsai {
     width: 100%;
   }
+}
+
+.bonsai img {
+  width: auto;
+  max-height: 100%;
 }

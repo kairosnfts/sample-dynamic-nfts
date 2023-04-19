@@ -50,20 +50,22 @@ export default function Details() {
   return (
     <div className={styles.detailsContainer}>
       <div className={styles.bonsai}>
-        <Image
-          src={bonsai?.metadataPatch?.image}
-          alt="Your bonsai tree"
-          width={512}
-          height={512}
-          priority
-          className="featured"
-        />
+        <div>
+          <Image
+            src={bonsai?.metadataPatch?.image}
+            alt="Your bonsai tree"
+            width={512}
+            height={512}
+            priority
+            // className="featured"
+          />
+        </div>
       </div>
       <div className={styles.details}>
         {attributes?.map((attribute) => (
           <div key={attribute.trait_type} className={styles.attribute}>
             <h3>{attribute.trait_type}</h3>
-            <p>{attribute.value}</p>
+            {attribute.value}
           </div>
         ))}
         {/* Show a reset option when we've reached the final stage */}

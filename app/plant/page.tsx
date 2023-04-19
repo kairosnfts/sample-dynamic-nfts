@@ -10,9 +10,9 @@ export default function Plant() {
         <Image
           src="/images/seed-packet.png"
           alt="Packet of seeds"
-          width={512}
-          height={512}
           priority
+          fill
+          object-fit="contain"
           className="featured"
         />
       </div>

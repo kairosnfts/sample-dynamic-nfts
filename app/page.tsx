@@ -10,9 +10,9 @@ export default function Home() {
         <Image
           src="/images/mature.png"
           alt="Bonsai tree"
-          width={512}
-          height={512}
           priority
+          fill
+          object-fit="contain"
           className="featured"
         />
       </div>
