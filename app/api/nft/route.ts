@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { request, gql } from 'graphql-request'
+import {
+  NftName,
+  NftDescription,
+  NftPrice,
+  TreeStage,
+  StageDescription,
+  StageImage,
+} from './data'
 
 const auth = `Basic ${Buffer.from(
   process.env.KAIROS_API_KEY! // Keep this secret from the client!
@@ -11,7 +19,7 @@ const auth = `Basic ${Buffer.from(
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const sessionToken = await req.cookies.get('__kairosSessionToken')?.value
   if (!sessionToken) {
-    throw new Error('No session token')
+    throw new Error('No session token found')
   }
 
   const data: any = await request(
@@ -27,7 +35,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   )
 
   if (!data.collectorOwnershipsByCollection) {
-    throw new Error('No data')
+    throw new Error('No NFTs found')
   }
 
   return NextResponse.json(
@@ -42,7 +50,17 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
  */
 export async function PATCH(req: NextRequest): Promise<NextResponse> {
   const body = await req.json()
-  const { nftId, description, uri } = body
+  const { nftId } = body
+
+  const date = new Date()
+  const niceDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}
+  ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+
+  // Get a random stage from TreeStage enum
+  const randomStage =
+    Object.values(TreeStage)[
+      Math.floor(Math.random() * Object.values(TreeStage).length)
+    ]
 
   await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
@@ -50,18 +68,27 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
     {
       input: {
         nftId: nftId,
-        // Metadata patch is a JSON object that will be merged with the existing metadata
-        // You can use this to update the metadata of an NFT without having to redeploy it
-        // This is useful for updating the image of an NFT or adding new attributes
+        /**
+         * Metadata patch is a JSON object that will be merged with the existing
+         * metadata. You can use this to update the metadata of an NFT without
+         * having to redeploy it. This is useful for updating the image of an
+         * NFT, or adding new attributes
+         */
         metadataPatch: {
-          external_url: 'https://kairos.art',
-          description,
-          image: uri,
+          image: StageImage[randomStage],
           attributes: [
             // You can add as many attributes as you want
             {
-              trait_type: 'Updated at',
-              value: new Date().toISOString(),
+              trait_type: 'Bonsai Stage',
+              value: randomStage,
+            },
+            {
+              trait_type: 'Description',
+              value: StageDescription[randomStage],
+            },
+            {
+              trait_type: 'Last Maintained',
+              value: niceDate,
             },
           ],
         },
@@ -71,7 +98,6 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
       Authorization: auth,
     }
   )
-
   return NextResponse.json({ nftId })
 }
 
@@ -88,10 +114,10 @@ export async function POST(req: Request): Promise<NextResponse> {
     CreateNftQuery,
     {
       input: {
-        name: 'Test NFT',
-        description: 'This is a test NFT',
+        name: NftName,
+        description: NftDescription,
         collectionId: process.env.KAIROS_COLLECTION_ID, // Keep this secret from the client!
-        price: 0.01, // The price of the NFT (on-chain native currency)
+        price: NftPrice, // The price of the NFT (on-chain native currency)
       },
     },
     {
@@ -104,8 +130,10 @@ export async function POST(req: Request): Promise<NextResponse> {
     throw new Error(createData.message)
   }
 
-  // STEP 2 - Deploy the NFT on the Kairos server.
-  // Note: This will not mint the NFT on the chain yet. That happens in STEP 3.
+  /**
+   * STEP 2 - Deploy the NFT on the Kairos server.
+   * Note: This will not mint the NFT on the chain yet. That happens in STEP 3.
+   */
   await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
     DeployNftQuery,
@@ -123,10 +151,11 @@ export async function POST(req: Request): Promise<NextResponse> {
   return NextResponse.json({ nftId: createData.nft.id })
 }
 
-// We use GraphQL queries to interact with the Kairos API
-// You can learn more about GraphQL language here: https://graphql.org/learn/
-
-export const UpdateMetadataQuery = gql`
+/**
+ * We use GraphQL queries to interact with the Kairos API
+ * You can learn more about GraphQL language here: https://graphql.org/learn/
+ */
+const UpdateMetadataQuery = gql`
   mutation UpdateDynamicMetadata($input: UpdateDynamicMetadataInput!) {
     updateDynamicMetadata(input: $input)
   }
@@ -155,7 +184,7 @@ const DeployNftQuery = gql`
   }
 `
 
-export const OwnershipsQuery = gql`
+const OwnershipsQuery = gql`
   query CollectorOwnershipsByCollection(
     $collectionId: UUID!
     $sessionToken: String!
@@ -182,3 +211,17 @@ export const OwnershipsQuery = gql`
     }
   }
 `
+
+export type Nft = {
+  name: string
+  id: string
+  __typename: string
+  metadataPatch: {
+    image: string
+    attributes: {
+      trait_type: string
+      value: string
+    }[]
+    description: string
+  }
+}

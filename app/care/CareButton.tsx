@@ -1,43 +1,38 @@
 'use client'
 
+import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 
-const updateMetadata = async ({
-  nftId,
-  description,
-  uri,
-}: {
-  nftId: string
-  description: string
-  uri: string
-}) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/nft`, {
+const fetchNft = async () => {
+  return await fetch('/api/nft', {
+    method: 'GET',
+  }).then((res) => res.json())
+}
+
+const updateMetadata = async (
+  url: string,
+  { arg }: { arg: { nftId: string } }
+) => {
+  return await fetch(url, {
     method: 'PATCH',
-    body: JSON.stringify({
-      nftId,
-      description,
-      uri,
-    }),
+    body: JSON.stringify(arg),
   }).then((res) => res.json())
 }
 
 export default function CareButton() {
-  const { trigger, isMutating } = useSWRMutation(
-    {
-      nftId: 'nftId',
-      uri: 'uri',
-      description: 'description',
-    },
-    updateMetadata
-  )
+  const { data } = useSWR('/api/nft', fetchNft)
+  // TODO: Handle multiple NFTs
+  const nftId = data && data[0].id
+
+  const { trigger, isMutating } = useSWRMutation('/api/nft', updateMetadata)
 
   const handleClick = () => {
-    trigger()
+    trigger({ nftId })
   }
 
   return (
-    <button className="button" onClick={handleClick}>
-      Water
+    <button className="button" onClick={handleClick} disabled={isMutating}>
+      Cultivate
     </button>
   )
 }

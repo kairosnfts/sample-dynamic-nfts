@@ -21,9 +21,8 @@ export default function RootLayout({
     <html lang="en" className={kaushan.className}>
       <body>
         <KairosProvider>
-          <Navigation />
-
           <KairosScript />
+          <Navigation />
 
           {children}
         </KairosProvider>
