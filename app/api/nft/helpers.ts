@@ -26,7 +26,7 @@ export const getNftsOfUser = async (sessionToken: string) => {
 }
 
 export const getNextStage = (nft: Nft) => {
-  const currentStage = nft.metadataPatch.attributes.find(
+  const currentStage = nft.metadataPatch?.attributes?.find(
     (d) => d.trait_type === 'Bonsai Stage'
   )?.value
   // Find the matching property in TreeStage enum based on the current stage string
@@ -43,6 +43,7 @@ export const getNextStage = (nft: Nft) => {
   if (index !== -1 && index < treeStages.length - 1) {
     nextStage = treeStages[index + 1]
   }
+
   return nextStage
 }
 

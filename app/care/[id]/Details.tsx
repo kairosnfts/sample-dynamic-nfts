@@ -1,10 +1,11 @@
 'use client'
 
+import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import Image from 'next/image'
 import styles from './Details.module.css'
-import { Nft } from '../api/nft/helpers'
+import { Nft } from '../../api/nft/helpers'
 
 const fetchNft = async () => {
   return await fetch('/api/nft', {
@@ -22,9 +23,10 @@ const updateMetadata = async (
   }).then((res) => res.json())
 }
 
-export default function CareButton() {
-  const { data } = useSWR('/api/nft', fetchNft)
-  const bonsai = data && (data[0] as Nft)
+export default function Details() {
+  const { id } = useParams()
+  const { data, isLoading } = useSWR('/api/nft', fetchNft)
+  const bonsai = data && data.find((nft: Nft) => nft.id === id)
   const { attributes } = (bonsai?.metadataPatch as Nft['metadataPatch']) || {}
 
   const { trigger, isMutating } = useSWRMutation('/api/nft', updateMetadata)
@@ -33,7 +35,17 @@ export default function CareButton() {
     trigger({ nftId: bonsai?.id, reset: true })
   }
 
-  if (!bonsai) return null
+  const ResetButton = () => (
+    <div>
+      <button className="button" onClick={handleClick} disabled={isMutating}>
+        Reset
+      </button>
+    </div>
+  )
+
+  if (!bonsai || isLoading) return null
+  // Something went wrong, show a reset button
+  if (!bonsai.metadataPatch?.image) return <ResetButton />
 
   return (
     <div className={styles.detailsContainer}>
@@ -58,17 +70,7 @@ export default function CareButton() {
           (attribute) =>
             attribute.trait_type === 'Bonsai Stage' &&
             attribute.value === 'Mature'
-        ) && (
-          <div>
-            <button
-              className="button"
-              onClick={handleClick}
-              disabled={isMutating}
-            >
-              Reset
-            </button>
-          </div>
-        )}
+        ) && <ResetButton />}
       </div>
     </div>
   )
