@@ -1,0 +1,48 @@
+.detailsContainer {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 2rem;
+  max-height: 50vh;
+}
+
+@media (max-width: 768px) {
+  .detailsContainer {
+    flex-direction: column;
+    margin-bottom: 2rem;
+    max-height: none;
+  }
+}
+
+.details {
+  padding: 2rem;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  width: 50%;
+}
+
+@media (max-width: 768px) {
+  .details {
+    width: 100%;
+  }
+}
+
+.bonsai {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+}
+
+@media (max-width: 768px) {
+  .bonsai {
+    width: 100%;
+  }
+}
+
+.bonsai img {
+  width: auto;
+  max-height: 100%;
+}

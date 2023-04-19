@@ -31,8 +31,8 @@ export default function Navigation() {
           <Image
             src="/images/kairosLogo.svg"
             alt="Kairos Logo"
-            width={144}
-            height={24}
+            width={100}
+            height={17}
           />
         </Link>
       </div>
