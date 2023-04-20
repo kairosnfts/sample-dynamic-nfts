@@ -28,9 +28,7 @@ export default async function middleware(request: NextRequest) {
 
     // If the user is not logged in, redirect to the home page
     if (!userId) {
-      // const newPath = request.nextUrl.clone()
-      // newPath.pathname = '/'
-      // return NextResponse.redirect(newPath)
+      return NextResponse.redirect(new URL('/', request.url))
     }
   }
 }
