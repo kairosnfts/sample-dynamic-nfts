@@ -28,9 +28,9 @@ export default async function middleware(request: NextRequest) {
 
     // If the user is not logged in, redirect to the home page
     if (!userId) {
-      const origin = `${request.nextUrl.protocol}//${request.nextUrl.host}`
-      const targetURL = `${origin}/`
-      return NextResponse.redirect(targetURL)
+      // const origin = `${request.nextUrl.protocol}//${request.nextUrl.host}`
+      // const targetURL = `${origin}/`
+      return NextResponse.redirect('https://kairos.art')
     }
   }
 }
