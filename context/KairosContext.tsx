@@ -1,8 +1,7 @@
 'use client'
 
 import { createContext, useEffect, useState } from 'react'
-import { Kairos } from '@kairosnfts/dapp'
-import { User } from '@kairosnfts/dapp/dist/types'
+import { Kairos, User } from '@kairosnfts/dapp'
 
 export type KairosContextType = {
   isKairosScriptLoaded: boolean
