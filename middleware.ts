@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 // Define the GraphQL API endpoint URL
 const API_URL = process.env.NEXT_PUBLIC_KAIROS_API_URL!
@@ -27,6 +28,9 @@ export default async function middleware(request: NextRequest) {
 
     // If the user is not logged in, redirect to the home page
     if (!userId) {
+      // const newPath = request.nextUrl.clone()
+      // newPath.pathname = '/'
+      // return NextResponse.redirect(newPath)
     }
   }
 }
