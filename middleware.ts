@@ -28,7 +28,9 @@ export default async function middleware(request: NextRequest) {
 
     // If the user is not logged in, redirect to the home page
     if (!userId) {
-      return NextResponse.redirect(new URL('/', request.url))
+      const origin = `${request.nextUrl.protocol}//${request.nextUrl.host}`
+      const targetURL = `${origin}/`
+      return NextResponse.redirect(targetURL)
     }
   }
 }
