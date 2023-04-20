@@ -66,8 +66,8 @@
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
 "@kairosnfts/dapp@https://github.com/kairosnfts/dapp":
-  version "1.0.0"
-  resolved "https://github.com/kairosnfts/dapp#26a37d7cda560fad2cdd2a704037c6c34b0ce433"
+  version "1.0.1"
+  resolved "https://github.com/kairosnfts/dapp#16c099c2681d873436e996987e9c6dfd4a74088b"
   dependencies:
     js-cookie "^3.0.1"
     typescript "^5.0.4"

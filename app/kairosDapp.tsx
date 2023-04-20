@@ -3,6 +3,7 @@
 import { KairosContext, KairosContextType } from '@/context/KairosContext'
 import { useContext, useEffect } from 'react'
 import { Kairos } from '@kairosnfts/dapp'
+
 export default function KairosScript() {
   const { setIsLoaded } = useContext<KairosContextType>(KairosContext)
   useEffect(() => {

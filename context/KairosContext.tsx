@@ -2,31 +2,13 @@
 
 import { createContext, useEffect, useState } from 'react'
 import { Kairos } from '@kairosnfts/dapp'
-
-declare global {
-  interface Window {
-    Kairos: {
-      init: (params: {
-        hasLogs: boolean
-        slug: string
-        onLogIn?: () => void
-        onLogOut?: () => void
-      }) => Promise<any>
-      close: () => Promise<any>
-      destroy: () => Promise<any>
-      startBid: (nftId: string) => Promise<any>
-      logIn: () => Promise<any>
-      logOut: () => Promise<any>
-      isLoggedIn: (checkSessionExpired?: boolean) => Promise<boolean>
-      getSessionCookie: () => string
-    }
-  }
-}
+import { User } from '@kairosnfts/dapp/dist/types'
 
 export type KairosContextType = {
   isKairosScriptLoaded: boolean
   isLoggedIn: boolean | undefined
   isLoginLoading: boolean
+  currentUser: User | undefined
   refetchLogin: () => void
   setIsLoaded: (loaded: boolean) => void
 }
@@ -35,6 +17,7 @@ export const KairosContext = createContext<KairosContextType>({
   isKairosScriptLoaded: false,
   isLoggedIn: undefined,
   isLoginLoading: true,
+  currentUser: undefined,
   refetchLogin: () => {},
   setIsLoaded: (loaded) => {},
 })
@@ -43,12 +26,16 @@ export const KairosProvider = ({ children }: { children: any }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [isLoginLoading, setIsLoginLoading] = useState<boolean>(true)
+  const [currentUser, setCurrentUser] = useState<User | undefined>(undefined)
 
   const refetchLogin = async () => {
     setIsLoginLoading(true)
     const loginStatus = await Kairos.isLoggedIn(true)
     setIsLoggedIn(loginStatus)
     setIsLoginLoading(false)
+    if (loginStatus) {
+      setCurrentUser(Kairos.getCurrentUser())
+    }
   }
 
   useEffect(() => {
@@ -59,6 +46,7 @@ export const KairosProvider = ({ children }: { children: any }) => {
     isKairosScriptLoaded: isLoaded,
     isLoggedIn,
     isLoginLoading,
+    currentUser,
     refetchLogin,
     setIsLoaded,
   }
