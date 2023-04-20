@@ -6,7 +6,7 @@ const API_URL = process.env.NEXT_PUBLIC_KAIROS_API_URL!
 // All routes that require authentication
 const PROTECTED_ROUTES = ['/shelf', '/care']
 
-export async function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   if (
     PROTECTED_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))
   ) {
