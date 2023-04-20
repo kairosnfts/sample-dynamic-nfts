@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useEffect, useState } from 'react'
+import { Kairos } from '@kairosnfts/dapp'
 
 declare global {
   interface Window {
@@ -45,7 +46,7 @@ export const KairosProvider = ({ children }: { children: any }) => {
 
   const refetchLogin = async () => {
     setIsLoginLoading(true)
-    const loginStatus = await window.Kairos.isLoggedIn(true)
+    const loginStatus = await Kairos.isLoggedIn(true)
     setIsLoggedIn(loginStatus)
     setIsLoginLoading(false)
   }
