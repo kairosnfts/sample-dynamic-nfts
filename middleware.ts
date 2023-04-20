@@ -7,7 +7,7 @@ const client = new GraphQLClient(process.env.NEXT_PUBLIC_KAIROS_API_URL!, {
 })
 
 // All routes that require authentication
-const PROTECTED_ROUTES = ['/care']
+const PROTECTED_ROUTES = ['/shelf', '/care']
 
 export async function middleware(request: NextRequest) {
   if (PROTECTED_ROUTES.includes(request.nextUrl.pathname)) {
