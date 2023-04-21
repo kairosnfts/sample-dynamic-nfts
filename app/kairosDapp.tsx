@@ -8,9 +8,9 @@ export default function KairosScript() {
   const { setIsLoaded } = useContext<KairosContextType>(KairosContext)
   useEffect(() => {
     Kairos.init({
-      env: 'staging',
+      env: 'staging', // This is the environment you want to use. It can be 'staging', 'production' or 'development', it will determine the server you will connect to
       hasLogs: true,
-      slug: 'dynamic-demo', // This is the slug of the storefront you created in the Kairos dashboard
+      slug: process.env.NEXT_PUBLIC_KAIROS_COLLECTION_SLUG!, // This is the slug of the storefront you created in the Kairos dashboard
       onLogIn: () => {
         console.log('Kairos log in')
       },
