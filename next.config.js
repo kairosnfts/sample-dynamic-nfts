@@ -11,6 +11,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'pretty.kairos.art',
+      },
+      {
+        protocol: 'https',
         hostname: 'cdn.shopify.com',
       },
     ],

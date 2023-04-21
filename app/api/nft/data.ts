@@ -30,12 +30,8 @@ export const stageDescription = {
 }
 
 export const stageImage = {
-  [TreeStage.SEED]:
-    'https://cdn.shopify.com/s/files/1/0249/4811/3492/products/shutterstock_1459014053_f4ac62c8-a034-4f05-bd25-1077a8703d09.jpg?v=1667050598',
-  [TreeStage.SEEDLING]:
-    'https://cdn.shopify.com/s/files/1/0249/4811/3492/products/bonsai-1805494_1920_960x.jpg?v=1667050598',
-  [TreeStage.SAPLING]:
-    'https://cdn.shopify.com/s/files/1/0249/4811/3492/products/bonsai-2211102_1920-1920x1200_1080x.jpg?v=1667050598',
-  [TreeStage.MATURE]:
-    'https://cdn.shopify.com/s/files/1/0249/4811/3492/products/Muffif_maple_tree_bonsai_hyper_real_art_station_trending_unreal_bc331610-e206-407c-b2fd-4bcc5405802c_1080x.png?v=1667050693.',
+  [TreeStage.SEED]: 'https://pretty.kairos.art/o/bonsai-seed.png',
+  [TreeStage.SEEDLING]: 'https://pretty.kairos.art/o/bonsai-seedling.png',
+  [TreeStage.SAPLING]: 'https://pretty.kairos.art/o/bonsai-sappling.png',
+  [TreeStage.MATURE]: 'https://pretty.kairos.art/o/bonsai-mature.png',
 }

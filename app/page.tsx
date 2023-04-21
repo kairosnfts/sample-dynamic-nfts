@@ -8,7 +8,7 @@ export default function Home() {
     <main>
       <div className="center">
         <Image
-          src="/images/mature.png"
+          src="/images/bonsai-mature.png"
           alt="Bonsai tree"
           priority
           fill

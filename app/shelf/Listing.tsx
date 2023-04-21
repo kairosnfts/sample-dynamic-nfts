@@ -6,6 +6,7 @@ import styles from './Listing.module.css'
 import { Nft } from '../api/nft/helpers'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 const fetchNft = async () => {
   return await fetch('/api/nft', {
@@ -17,12 +18,14 @@ export default function Listing() {
   const router = useRouter()
   const { data } = useSWR('/api/nft', fetchNft)
 
-  if (data?.length === 1) {
-    // If just a single bonsai, redirect to the care page
-    router.push(`/care/${data[0].id}`)
-  }
+  useEffect(() => {
+    if (data?.length === 1) {
+      // If just a single bonsai, redirect to the care page
+      router.push(`/care/${data[0].id}`)
+    }
+  }, [router, data])
 
-  if (!data) return null
+  if (!data || data.length === 1) return null
 
   return (
     <div className={styles.shelfContainer}>

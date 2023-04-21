@@ -13,7 +13,7 @@ export default function KairosScript() {
         onLoad={async () => {
           await window.Kairos.init({
             hasLogs: true,
-            slug: 'dynamic-demo', // This is the slug of the storefront you created in the Kairos dashboard
+            slug: process.env.NEXT_PUBLIC_KAIROS_COLLECTION_SLUG!, // This is the slug of the storefront you created in the Kairos dashboard
             onLogIn: () => {
               console.log('Kairos log in')
             },
