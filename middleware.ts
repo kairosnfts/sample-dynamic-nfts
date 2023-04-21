@@ -8,7 +8,6 @@ export const config = {
 }
 
 export default async function middleware(request: NextRequest) {
-  console.log(request)
   const sessionToken = request.cookies.get('__kairosSessionToken')?.value
   let userId = undefined
   if (sessionToken) {
