@@ -90,6 +90,17 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@kairosnfts/dapp@https://github.com/kairosnfts/dapp":
+  version "0.0.1"
+  resolved "https://github.com/kairosnfts/dapp#e0ef1ae6e2a3709b1066ee16771d36f66c0a8f3c"
+  dependencies:
+    "@types/react" "18.0.35"
+    "@types/react-dom" "18.0.11"
+    js-cookie "^3.0.1"
+    react "18.2.0"
+    react-dom "18.2.0"
+    typescript "^5.0.4"
+
 "@kairosnfts/dapp@https://github.com/kairosnfts/dapp#fixes":
   version "0.0.1"
   resolved "https://github.com/kairosnfts/dapp#b737818f3a5e2b8e33d8666c0ddba1e3dbe26710"
