@@ -101,6 +101,17 @@
     react-dom "18.2.0"
     typescript "^5.0.4"
 
+"@kairosnfts/dapp@https://github.com/kairosnfts/dapp#fixes":
+  version "0.0.1"
+  resolved "https://github.com/kairosnfts/dapp#f7b45bdd25fc0d1cc1ac88ef081e2646485ffcae"
+  dependencies:
+    "@types/react" "18.0.35"
+    "@types/react-dom" "18.0.11"
+    js-cookie "^3.0.1"
+    react "18.2.0"
+    react-dom "18.2.0"
+    typescript "^5.0.4"
+
 "@next/env@13.3.1-canary.18":
   version "13.3.1-canary.18"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-13.3.1-canary.18.tgz#1a12e8fa332eabe40c5fb1d6c544f7002a26d583"
