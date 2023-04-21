@@ -1,6 +1,6 @@
 'use client'
 
-import { KairosContext, KairosContextType } from '@/context/KairosContext'
+import { KairosContext, KairosContextType } from '@kairosnfts/dapp/dist/react'
 import { useContext, useEffect } from 'react'
 import { Kairos } from '@kairosnfts/dapp'
 

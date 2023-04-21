@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useContext } from 'react'
-import { KairosContext } from '@/context/KairosContext'
+import { KairosContext } from '@kairosnfts/dapp/dist/react'
 import styles from './ConnectButton.module.css'
 import { Kairos } from '@kairosnfts/dapp'
 
