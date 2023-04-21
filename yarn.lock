@@ -72,22 +72,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@kairosnfts/dapp@https://github.com/kairosnfts/dapp":
-  version "0.0.1"
-  resolved "https://github.com/kairosnfts/dapp#ee50da3c9d6bc126f762f4781dff446e4df847ab"
-  dependencies:
-    "@types/react" "18.0.35"
-    "@types/react-dom" "18.0.11"
-    js-cookie "^3.0.1"
-    react "18.2.0"
-    react-dom "18.2.0"
-    typescript "^5.0.4"
-
-"@next/env@13.3.1-canary.18":
-  version "13.3.1-canary.18"
-  resolved "https://registry.yarnpkg.com/@next/env/-/env-13.3.1-canary.18.tgz#1a12e8fa332eabe40c5fb1d6c544f7002a26d583"
-  integrity sha512-4dvOWOm71s/FsQkJBkLK/OS5rt9iGZr8V0MZUxbWWT1M9ZjgpGKuzn5ltEpjJbnsDAlA8b3KPPJD4QQnz1AdzA==
-
 "@jridgewell/resolve-uri@^3.0.3":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@jridgewell/resolve-uri/-/resolve-uri-3.1.1.tgz#c08679063f279615a3326583ba3a90d1d82cc721"
@@ -106,10 +90,21 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@next/env@13.3.1-canary.17":
-  version "13.3.1-canary.17"
-  resolved "https://registry.yarnpkg.com/@next/env/-/env-13.3.1-canary.17.tgz#530930c29c76ff9fc99587dadafbc0b6f40a11d1"
-  integrity sha512-CMWe0o/ijioxUZ9LOSAo5/lQlgj0sxPjCJ8qCB5VxivabqCu72+FUsGGCLUd9Z2JCTLluNnzUDZVvZDLjU7Dtg==
+"@kairosnfts/dapp@https://github.com/kairosnfts/dapp":
+  version "0.0.1"
+  resolved "https://github.com/kairosnfts/dapp#ee50da3c9d6bc126f762f4781dff446e4df847ab"
+  dependencies:
+    "@types/react" "18.0.35"
+    "@types/react-dom" "18.0.11"
+    js-cookie "^3.0.1"
+    react "18.2.0"
+    react-dom "18.2.0"
+    typescript "^5.0.4"
+
+"@next/env@13.3.1-canary.18":
+  version "13.3.1-canary.18"
+  resolved "https://registry.yarnpkg.com/@next/env/-/env-13.3.1-canary.18.tgz#1a12e8fa332eabe40c5fb1d6c544f7002a26d583"
+  integrity sha512-4dvOWOm71s/FsQkJBkLK/OS5rt9iGZr8V0MZUxbWWT1M9ZjgpGKuzn5ltEpjJbnsDAlA8b3KPPJD4QQnz1AdzA==
 
 "@next/eslint-plugin-next@13.3.0":
   version "13.3.0"
