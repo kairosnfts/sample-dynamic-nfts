@@ -8,7 +8,7 @@ export default function Plant() {
     <main>
       <div className="center">
         <Image
-          src="/images/seed-packet.png"
+          src="/images/seeds.png"
           alt="Packet of seeds"
           priority
           fill
