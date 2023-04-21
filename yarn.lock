@@ -92,25 +92,14 @@
 
 "@kairosnfts/dapp@https://github.com/kairosnfts/dapp":
   version "0.0.2"
-  resolved "https://github.com/kairosnfts/dapp#b67e194ac1dd12a63915d1c611f579bc85c886a3"
+  resolved "https://github.com/kairosnfts/dapp#d7f1e62d79772adb08d331a21074050bf7068f56"
   dependencies:
     "@types/react" "18.0.35"
     "@types/react-dom" "18.0.11"
     js-cookie "^3.0.1"
     react "18.2.0"
     react-dom "18.2.0"
-    typescript "^5.0.4"
-
-"@kairosnfts/dapp@https://github.com/kairosnfts/dapp#context":
-  version "0.0.2"
-  resolved "https://github.com/kairosnfts/dapp#b7b7698ff2a6dc3d15308ba0a9a1965eaa0ef62c"
-  dependencies:
-    "@types/react" "18.0.35"
-    "@types/react-dom" "18.0.11"
-    js-cookie "^3.0.1"
-    react "18.2.0"
-    react-dom "18.2.0"
-    typescript "^5.0.4"
+    typescript "5.0.4"
 
 "@next/env@13.3.1-canary.18":
   version "13.3.1-canary.18"
