@@ -11,21 +11,13 @@ This is an example of a project built with [Next.js](https://nextjs.org/) 13, an
 To install, simply run the following in your local directory:
 
 ```bash
-npm
-# or
 yarn
-# or
-pnpm
 ```
 
 Then run it:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
 ```
 
 You should now see the application running on `http://localhost:3000`. 🎉
@@ -34,7 +26,7 @@ You should now see the application running on `http://localhost:3000`. 🎉
 
 This application is connected by default to Kairos Beta servers, so that you can test the flow of:
 
-- NFT purchase -> display -> update
+- NFT purchase → display → update
 
 You can do this out-of-the-box, without having to add any additional environment variables, because we've already setup a demo Kairos account and added the appropriate keys to this repo. However, when you're ready to start building your own project, be sure to [signup to Kairos](https://kairos.art/sign-up), create your own collection, and update the collection and API keys shown in `.env.local`.
 
