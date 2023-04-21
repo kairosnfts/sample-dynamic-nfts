@@ -1,8 +1,8 @@
 import { Kaushan_Script } from 'next/font/google'
-import { KairosProvider } from './kairosDapp'
-import KairosDapp from './kairosDapp'
+import KairosClientProvider from './kairosDapp'
 import Navigation from './Navigation'
 import './globals.css'
+import { KairosEnv } from '@kairosnfts/dapp/dist/types'
 
 export const metadata = {
   title: 'Bonsai ~ Dynamic NFT App',
@@ -20,11 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={kaushan.className}>
       <body>
-        <KairosProvider>
-          <KairosDapp />
+        <KairosClientProvider>
           <Navigation />
           {children}
-        </KairosProvider>
+        </KairosClientProvider>
       </body>
     </html>
   )

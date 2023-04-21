@@ -91,8 +91,8 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@kairosnfts/dapp@https://github.com/kairosnfts/dapp":
-  version "0.0.1"
-  resolved "https://github.com/kairosnfts/dapp#e0ef1ae6e2a3709b1066ee16771d36f66c0a8f3c"
+  version "0.0.2"
+  resolved "https://github.com/kairosnfts/dapp#b67e194ac1dd12a63915d1c611f579bc85c886a3"
   dependencies:
     "@types/react" "18.0.35"
     "@types/react-dom" "18.0.11"
@@ -101,9 +101,9 @@
     react-dom "18.2.0"
     typescript "^5.0.4"
 
-"@kairosnfts/dapp@https://github.com/kairosnfts/dapp#fixes":
-  version "0.0.1"
-  resolved "https://github.com/kairosnfts/dapp#b737818f3a5e2b8e33d8666c0ddba1e3dbe26710"
+"@kairosnfts/dapp@https://github.com/kairosnfts/dapp#context":
+  version "0.0.2"
+  resolved "https://github.com/kairosnfts/dapp#b7b7698ff2a6dc3d15308ba0a9a1965eaa0ef62c"
   dependencies:
     "@types/react" "18.0.35"
     "@types/react-dom" "18.0.11"
