@@ -4,7 +4,7 @@ import { KairosContext, KairosContextType } from '@kairosnfts/dapp/dist/react'
 import { useContext, useEffect } from 'react'
 import { Kairos } from '@kairosnfts/dapp'
 
-// We need to import and export the provider so we can include it as a client componet
+// We need to import and export the provider so we can include it as a client componet.
 export { KairosProvider } from '@kairosnfts/dapp/dist/react'
 
 export default function KairosScript() {
