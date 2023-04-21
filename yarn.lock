@@ -92,7 +92,7 @@
 
 "@kairosnfts/dapp@https://github.com/kairosnfts/dapp#fixes":
   version "0.0.1"
-  resolved "https://github.com/kairosnfts/dapp#916bf8fba42308107893ff0f6af2e03bada198aa"
+  resolved "https://github.com/kairosnfts/dapp#b737818f3a5e2b8e33d8666c0ddba1e3dbe26710"
   dependencies:
     "@types/react" "18.0.35"
     "@types/react-dom" "18.0.11"
