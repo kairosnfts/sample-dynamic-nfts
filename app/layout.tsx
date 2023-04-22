@@ -1,6 +1,5 @@
 import { Kaushan_Script } from 'next/font/google'
-import KairosProvider from '@/context/KairosContext'
-import KairosScript from './kairosScript'
+import KairosClientProvider from './kairosDapp'
 import Navigation from './Navigation'
 import './globals.css'
 
@@ -20,12 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={kaushan.className}>
       <body>
-        <KairosProvider>
-          <KairosScript />
+        <KairosClientProvider>
           <Navigation />
-
           {children}
-        </KairosProvider>
+        </KairosClientProvider>
       </body>
     </html>
   )

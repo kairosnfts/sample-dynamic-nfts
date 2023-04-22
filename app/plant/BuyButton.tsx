@@ -3,6 +3,7 @@
 import useSWRMutation from 'swr/mutation'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Kairos } from '@kairosnfts/dapp'
 
 const fetchNftId = async () => {
   return await fetch('/api/nft', {
@@ -28,7 +29,7 @@ export default function BuyButton() {
      * STEP 3 - Initiate NFT purchase using the NFT ID from Kairos
      * This will open the purchase modal for the user to complete the purchase
      */
-    const bid = await window.Kairos.startBid(result.nftId)
+    const bid = await Kairos.startBid(result.nftId)
     /**
      * At this point the user completed the purchase and the NFT is minted on
      * the blockchain. The status of the NFT bid is returned and can be used
@@ -40,7 +41,7 @@ export default function BuyButton() {
 
     if (bid.code === 'SUCCESS') {
       setTimeout(() => {
-        window.Kairos.close() // Close the Kairos modal or it will stay open after redirect
+        Kairos.close() // Close the Kairos modal or it will stay open after redirect
         router.push('/shelf')
       }, 1000) // Show confirmation box for a second before redirecting
     }
