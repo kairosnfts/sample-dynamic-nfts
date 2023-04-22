@@ -9,9 +9,46 @@
   margin-left: auto;
 }
 
+.navItem,
+.centerNavItem {
+  flex: 1;
+}
+
+.centerNavItem {
+  display: flex;
+  justify-content: center;
+}
+
 .poweredBy {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.8rem;
+  justify-content: flex-end;
+}
+
+.logoutButton {
+  cursor: pointer;
+  text-decoration: underline;
+  text-align: center;
+  width: fit-content;
+  padding: 10px 10px;
+}
+
+.logoutButton p {
+  color: black;
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+}
+
+.logoutButton:hover p {
+  display: none;
+}
+
+.logoutButton:hover:before {
+  content: 'Logout';
+  display: block;
+  font-weight: bold;
+  padding: 6px 60px;
 }
