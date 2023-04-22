@@ -1,7 +1,6 @@
 'use client'
 
-import { KairosProvider } from '@kairosnfts/dapp/dist/react'
-import { KairosEnv } from '@kairosnfts/dapp/dist/types'
+import { KairosEnv, KairosProvider } from '@kairosnfts/dapp'
 
 export default function KairosClientProvider({
   children,

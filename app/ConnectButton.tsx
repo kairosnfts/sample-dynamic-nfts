@@ -2,9 +2,8 @@
 
 import Link from 'next/link'
 import { useContext } from 'react'
-import { KairosContext } from '@kairosnfts/dapp/dist/react'
 import styles from './ConnectButton.module.css'
-import { Kairos } from '@kairosnfts/dapp'
+import { Kairos, KairosContext } from '@kairosnfts/dapp'
 
 export default function Home() {
   const { isLoggedIn, isLoginLoading } = useContext(KairosContext)

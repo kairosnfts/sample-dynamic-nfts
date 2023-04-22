@@ -2,7 +2,6 @@ import { Kaushan_Script } from 'next/font/google'
 import KairosClientProvider from './kairosDapp'
 import Navigation from './Navigation'
 import './globals.css'
-import { KairosEnv } from '@kairosnfts/dapp/dist/types'
 
 export const metadata = {
   title: 'Bonsai ~ Dynamic NFT App',
