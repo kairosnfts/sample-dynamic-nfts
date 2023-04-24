@@ -1,6 +1,7 @@
 .nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 2rem;
 }
@@ -9,9 +10,39 @@
   margin-left: auto;
 }
 
+.navItem,
+.centerNavItem {
+  flex: 1;
+}
+
+.centerNavItem {
+  display: flex;
+  justify-content: center;
+}
+
 .poweredBy {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.8rem;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+  .poweredBy span {
+    display: none;
+  }
+}
+
+.logoutButton {
+  display: inline-block;
+  text-align: center;
+  margin: 0 1rem;
+}
+
+.logoutButton span {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1;
+  margin-bottom: 0.2rem;
 }
