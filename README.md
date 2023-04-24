@@ -1,5 +1,7 @@
 # Bonsai Dynamic NFT Demo
 
+<img width="828" alt="dynamic-nft-screenshot" src="https://user-images.githubusercontent.com/6920066/234094436-997722ee-d806-42ee-a889-10e8cd00aef9.png">
+
 This application utilizes the [`kairos/dapp`](https://github.com/kairosnfts/dapp) library to demonstrate the capabilities of dynamic NFTs, and the ease of integration for collections created on [Kairos](https://kairos.art).
 
 This is an example of a project built with [Next.js](https://nextjs.org/) 13, and bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). However, you can bring your own framework (or none at all!) if you don't want to use Next.
