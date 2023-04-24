@@ -53,7 +53,7 @@ export default function Details() {
   const ResetButton = () => (
     <div>
       <button className="button" onClick={handleClick} disabled={isMutating}>
-        Reset
+        Reset NFT
       </button>
     </div>
   )
@@ -61,8 +61,10 @@ export default function Details() {
   const ExplorerButton = () => (
     <div>
       <Link href={getOpenSeaUrl()} target="_blank">
-        Open on chain explorer
-      </Link>
+        View this NFT on Opensea (a chain explorer).
+      </Link>{' '}
+      You will need to manually &ldquo;refresh metadata&rdquo; on Opensea, and
+      then wait a minute or so, to refresh and see the changes.
     </div>
   )
 
@@ -80,7 +82,6 @@ export default function Details() {
             width={512}
             height={512}
             priority
-            // className="featured"
           />
         </div>
       </div>
