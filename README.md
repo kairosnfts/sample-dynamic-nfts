@@ -28,7 +28,7 @@ This application is connected by default to Kairos Beta servers, so that you can
 
 - NFT purchase → display → update
 
-You can do this out-of-the-box, without having to add any additional environment variables, because we've already setup a demo Kairos account and added the appropriate keys to this repo. However, when you're ready to start building your own project, be sure to [signup to Kairos](https://kairos.art/sign-up), create your own collection, and update the collection and API keys shown in `.env.local`.
+You can do this out-of-the-box, without having to add any additional environment variables, because we've already setup a demo Kairos account and added the appropriate keys to this repo. However, when you're ready to start building your own project, be sure to [signup to Kairos](https://kairos.art/sign-up), create your own collection, and update the collection and API keys shown in `.env.local`. Also be sure to update the URLs for Kairos in `.env` with non-beta versions for your production environment (ie, `https://beta.kairos.art/public/graphql` → `https://kairos.art/public/graphql`)
 
 ### Purchasing an NFT
 
@@ -46,9 +46,9 @@ Once you purchase an NFT bonsai, you can cultivate it to progress it to the next
 
 ## How it Works
 
-Most NFT smart contracts don't include images or attributes directly on-chain. Rather, they link to other URLs that host that information. In this case, Kairos holds the "state" of the NFT metadata, which is linked from the smart contract. If you update the NFT metadata, and then use a real-time [blockchain explorer](https://gemcase.vercel.app/), you will see the metadata referenced on-chain has updated with your changes.
+Most NFT smart contracts don't include images or attributes directly on-chain. Rather, they link to other URLs that host that information. In this case, Kairos holds the "state" of the NFT metadata, which is linked from the smart contract. If you update the NFT metadata, and then use a [blockchain explorer](https://testnets.opensea.io/collection/bonsai-dynamic-nft), you will see the metadata referenced on-chain has updated with your changes.
 
-> **_NOTE:_** Some explorers and marketplaces, like Opensea, don't update metadata in real-time. Rather, they update on jobs every so often. So metadata changes may **seem** delayed, even if they aren't.
+> **_NOTE:_** Some explorers and marketplaces, like Opensea, don't update metadata in real-time. Rather, they update on jobs that run periodically, so metadata changes may *seem* delayed, even if they aren't. In the case of Opensea, you can click on the three dots button in the top right of an NFT detail page to manually refresh the metadata. 
 
 ## Support
 
