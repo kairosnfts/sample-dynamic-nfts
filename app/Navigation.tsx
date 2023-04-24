@@ -46,9 +46,14 @@ export default function Navigation() {
 
       <div className={styles.centerNavItem}>
         {currentUser && (
-          <Link href="/" className={styles.logoutButton} onClick={handleLogOut}>
-            <p>{getPubkeyAbbr(currentUser?.wallet.pubkey)}</p>
-            <p>{getEmailAbbr(currentUser?.email)}</p>
+          <Link
+            href="/"
+            className={`${styles.logoutButton} noStyle`}
+            onClick={handleLogOut}
+            title="Click to logout"
+          >
+            <span>{getEmailAbbr(currentUser?.email)}</span>
+            <code>{getPubkeyAbbr(currentUser?.wallet.pubkey)}</code>
           </Link>
         )}
       </div>
@@ -59,7 +64,7 @@ export default function Navigation() {
           className={`${styles.poweredBy} noStyle`}
           target="_blank"
         >
-          Powered by
+          <span>Powered by</span>
           <Image
             src="/images/kairosLogo.svg"
             alt="Kairos Logo"
