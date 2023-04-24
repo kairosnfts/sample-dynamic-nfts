@@ -29,7 +29,7 @@ export default function BuyButton() {
      * STEP 3 - Initiate NFT purchase using the NFT ID from Kairos
      * This will open the purchase modal for the user to complete the purchase
      */
-    const bid = await Kairos.startBid(result.nftId)
+    await Kairos.startBid(result.nftId)
     /**
      * At this point the user completed the purchase and the NFT is minted on
      * the blockchain. The status of the NFT bid is returned and can be used
@@ -39,12 +39,10 @@ export default function BuyButton() {
 
     setIsLoading(false)
 
-    if (bid.code === 'SUCCESS') {
-      setTimeout(() => {
-        Kairos.close() // Close the Kairos modal or it will stay open after redirect
-        router.push('/shelf')
-      }, 1000) // Show confirmation box for a second before redirecting
-    }
+    setTimeout(() => {
+      Kairos.close() // Close the Kairos modal or it will stay open after redirect
+      router.push('/shelf')
+    }, 1000) // Show confirmation box for a second before redirecting
   }
 
   return (
