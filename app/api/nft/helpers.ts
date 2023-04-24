@@ -152,6 +152,7 @@ export const OwnershipsQuery = gql`
       id
       nft {
         name
+        mintPubkey
         id
         __typename
         metadataPatch {

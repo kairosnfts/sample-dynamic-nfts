@@ -6,6 +6,7 @@ import useSWRMutation from 'swr/mutation'
 import Image from 'next/image'
 import styles from './Details.module.css'
 import { Nft } from '../../api/nft/helpers'
+import Link from 'next/link'
 
 const fetchNft = async () => {
   return await fetch('/api/nft', {
@@ -35,11 +36,35 @@ export default function Details() {
     trigger({ nftId: bonsai?.id, reset: true })
   }
 
+  const getOpenSeaUrl = () => {
+    const baseUrl = 'https://testnets.opensea.io'
+    const network = 'mumbai'
+    const collectionPubkey = process.env.NEXT_PUBLIC_KAIROS_COLLECTION_PUBKEY
+    const mintPubkey = bonsai.mintPubkey
+
+    const url = new URL(
+      `assets/${network}/${collectionPubkey}/${mintPubkey}`,
+      baseUrl
+    )
+
+    return url.href
+  }
+
   const ResetButton = () => (
     <div>
       <button className="button" onClick={handleClick} disabled={isMutating}>
-        Reset
+        Reset NFT
       </button>
+    </div>
+  )
+
+  const ExplorerButton = () => (
+    <div>
+      <Link href={getOpenSeaUrl()} target="_blank">
+        View this NFT on Opensea (a chain explorer).
+      </Link>{' '}
+      You will need to manually &ldquo;refresh metadata&rdquo; on Opensea, and
+      then wait a minute or so, to refresh and see the changes.
     </div>
   )
 
@@ -57,7 +82,6 @@ export default function Details() {
             width={512}
             height={512}
             priority
-            // className="featured"
           />
         </div>
       </div>
@@ -68,6 +92,7 @@ export default function Details() {
             {attribute.value}
           </div>
         ))}
+        <ExplorerButton />
         {/* Show a reset option when we've reached the final stage */}
         {attributes?.find(
           (attribute) =>
