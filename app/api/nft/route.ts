@@ -8,14 +8,8 @@ import {
   stageImage,
   TreeStage,
 } from './data'
-import {
-  auth,
-  getNftsOfUser,
-  getNextStage,
-  updateNft,
-  CreateNftQuery,
-  DeployNftQuery,
-} from './helpers'
+import { auth, getNftsOfUser, getNextStage, updateNft } from './helpers'
+import { CreateNftQuery, DeployNftQuery } from './queries'
 
 /**
  * This is the route will return all the NFTs and their metadata that the user owns

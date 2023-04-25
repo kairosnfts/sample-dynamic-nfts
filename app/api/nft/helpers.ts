@@ -1,5 +1,6 @@
-import { request, gql } from 'graphql-request'
+import { request } from 'graphql-request'
 import { TreeStage, treeStages } from './data'
+import { OwnershipsQuery, UpdateMetadataQuery } from './queries'
 
 export const auth = `Basic ${Buffer.from(
   process.env.KAIROS_API_KEY! // Keep this secret from the client!
@@ -107,72 +108,9 @@ export const updateNft = async ({
   )
 }
 
-/**
- * We use GraphQL queries to interact with the Kairos API
- * You can learn more about GraphQL language here: https://graphql.org/learn/
- */
-export const UpdateMetadataQuery = gql`
-  mutation UpdateDynamicMetadata($input: UpdateDynamicMetadataInput!) {
-    updateDynamicMetadata(input: $input)
-  }
-`
-
-export const CreateNftQuery = gql`
-  mutation CreateOneOfOneNft($input: CreateOneOfOneNftInput!) {
-    createOneOfOneNft(input: $input) {
-      ... on CreateNftRes {
-        nft {
-          id
-        }
-      }
-      ... on CreateOneOfOneNftError {
-        message
-      }
-      __typename
-    }
-  }
-`
-export const DeployNftQuery = gql`
-  mutation DeployNft($input: DeployNftInput!) {
-    deployNft(input: $input) {
-      __typename
-    }
-  }
-`
-
-export const OwnershipsQuery = gql`
-  query CollectorOwnershipsByCollection(
-    $collectionId: UUID!
-    $sessionToken: String!
-  ) {
-    collectorOwnershipsByCollection(
-      collectionId: $collectionId
-      sessionToken: $sessionToken
-    ) {
-      id
-      nft {
-        name
-        mintPubkey
-        id
-        __typename
-        metadataPatch {
-          image
-          attributes {
-            trait_type
-            value
-          }
-          description
-        }
-      }
-      __typename
-    }
-  }
-`
-
 export type Nft = {
   name: string
   id: string
-  __typename: string
   metadataPatch: {
     image: string
     attributes: {
