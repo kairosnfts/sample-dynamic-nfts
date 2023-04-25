@@ -2,11 +2,7 @@
 
 import { KairosEnv, KairosProvider } from '@kairosnfts/dapp'
 
-export default function KairosClientProvider({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <KairosProvider
       env={KairosEnv.staging} // This is the environment you want to use. It can be 'staging', 'production' or 'development', it will determine the server you will connect to
