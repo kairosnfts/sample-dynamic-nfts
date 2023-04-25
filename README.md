@@ -66,7 +66,7 @@ const createResponse: any = await request(
   }
 )
 ```
-The `CreateNftQuery` gql is found in [`helpers.ts`](https://github.com/kairosnfts/sample-dynamic-nfts/blob/a80612d0958628f1a53ba6a79dc0070bad8dede2/app/api/nft/helpers.ts), and you can reference the Kairos API options for this request in the [Kairos API definition for `CreateOneOfOneNft`](https://api.kairos.art/#mutation-createOneOfOneNft).
+The `CreateNftQuery` gql is found in [`queries.ts`](https://github.com/kairosnfts/sample-dynamic-nfts/blob/06fdb1c86d7970041e8aec40b6ac46697febdadf/app/api/nft/queries.ts), and you can reference the Kairos API options for this request in the [Kairos API definition for `CreateOneOfOneNft`](https://api.kairos.art/#mutation-createOneOfOneNft).
 
 The next step is to ask Kairos to deploy the newly created NFT to the blockchain:
 
@@ -110,16 +110,10 @@ The final step is for the user to finalize the purchase from completed the steps
  * STEP 3 - Initiate NFT purchase using the NFT ID from Kairos
  * This will open the purchase modal for the user to complete the purchase
  */
-const bid = await Kairos.startBid(result.nftId)
-/**
- * At this point the user completed the purchase and the NFT is minted on
- * the blockchain. The status of the NFT bid is returned and can be used
- * to determine next steps for your application.
- * Note: After a successful purchase, the user will be logged in to Kairos
- */
+await Kairos.startBid(result.nftId)
 ```
 
-You can respond to the returned bid code ([see the bid code type](https://github.com/kairosnfts/dapp/blob/85bf59e9c6e3c97c494f2775cf2444d774c5c348/src/types.ts#L1)) on the client-side to fit the needs of your application.
+At this point, the user has completed the purchase and the NFT is minted on the blockchain. You can now direct the user to whatever page or action they should see next. 
 
 ### Displaying NFTs
 
