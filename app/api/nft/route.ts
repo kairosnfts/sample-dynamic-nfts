@@ -54,7 +54,7 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
   if (reset) {
     nextStage = TreeStage.SEED
   } else {
-    nextStage = getNextStage(nft.nft)
+    nextStage = getNextStage(nft.nft!)
   }
 
   if (!nextStage) {

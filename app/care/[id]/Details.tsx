@@ -5,7 +5,7 @@ import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import Image from 'next/image'
 import styles from './Details.module.css'
-import { Nft } from '../../api/nft/helpers'
+import { Nft } from '@kairosnfts/dapp'
 import Link from 'next/link'
 
 const fetchNft = async () => {
@@ -87,16 +87,16 @@ export default function Details() {
       </div>
       <div className={styles.details}>
         {attributes?.map((attribute) => (
-          <div key={attribute.trait_type} className={styles.attribute}>
-            <h3>{attribute.trait_type}</h3>
-            {attribute.value}
+          <div key={attribute?.trait_type} className={styles.attribute}>
+            <h3>{attribute?.trait_type}</h3>
+            {attribute?.value}
           </div>
         ))}
         <ExplorerButton />
         {/* Show a reset option when we've reached the final stage */}
         {attributes?.find(
           (attribute) =>
-            attribute.trait_type === 'Bonsai Stage' &&
+            attribute?.trait_type === 'Bonsai Stage' &&
             attribute.value === 'Mature'
         ) && <ResetButton />}
       </div>

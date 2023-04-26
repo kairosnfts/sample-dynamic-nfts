@@ -1,13 +1,14 @@
 import { request } from 'graphql-request'
 import { TreeStage, treeStages } from './data'
 import { OwnershipsQuery, UpdateMetadataQuery } from './queries'
+import { Ownership, Nft } from '@kairosnfts/dapp'
 
 export const auth = `Basic ${Buffer.from(
   process.env.KAIROS_API_KEY! // Keep this secret from the client!
 ).toString('base64')}`
 
 export const getNftsOfUser = async (sessionToken: string) => {
-  const data: Ownerships = await request(
+  const data: { collectorOwnershipsByCollection: Ownership[] } = await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
     OwnershipsQuery,
     {
@@ -28,7 +29,7 @@ export const getNftsOfUser = async (sessionToken: string) => {
 
 export const getNextStage = (nft: Nft) => {
   const currentStage = nft.metadataPatch?.attributes?.find(
-    (d) => d.trait_type === 'Bonsai Stage'
+    (d) => d?.trait_type === 'Bonsai Stage'
   )?.value
   // Find the matching property in TreeStage enum based on the current stage string
   const currentStageEnum = Object.values(TreeStage).find(
@@ -106,25 +107,4 @@ export const updateNft = async ({
       Authorization: auth,
     }
   )
-}
-
-export type Nft = {
-  name: string
-  id: string
-  metadataPatch: {
-    image: string
-    attributes: {
-      trait_type: string
-      value: string
-    }[]
-    description: string
-  }
-}
-
-export type Ownerships = {
-  collectorOwnershipsByCollection: {
-    id: string
-    nft: Nft
-    __typename: string
-  }[]
 }

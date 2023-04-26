@@ -91,11 +91,12 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@kairosnfts/dapp@https://github.com/kairosnfts/dapp":
-  version "0.0.8"
-  resolved "https://github.com/kairosnfts/dapp#85bf59e9c6e3c97c494f2775cf2444d774c5c348"
+  version "0.1.0"
+  resolved "https://github.com/kairosnfts/dapp#31d555ad53cca4820d4a970d2f4b65a0c5bc57eb"
   dependencies:
     "@types/react" "18.0.35"
     "@types/react-dom" "18.0.11"
+    graphql "^16.6.0"
     js-cookie "^3.0.1"
     react "18.2.0"
     react-dom "18.2.0"
