@@ -68,7 +68,7 @@ const createResponse: any = await request(
 ```
 The `CreateNftQuery` gql is found in [`queries.ts`](https://github.com/kairosnfts/sample-dynamic-nfts/blob/06fdb1c86d7970041e8aec40b6ac46697febdadf/app/api/nft/queries.ts), and you can reference the Kairos API options for this request in the [Kairos API definition for `CreateOneOfOneNft`](https://api.kairos.art/#mutation-createOneOfOneNft).
 
-The next step is to ask Kairos to deploy the newly created NFT to Kairos servers in order to obtain an `niftId`:
+The next step is to ask Kairos to deploy the newly created NFT to Kairos servers in order to obtain an `nftId`:
 
 ```js
 /**
