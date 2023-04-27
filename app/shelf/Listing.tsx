@@ -3,7 +3,7 @@
 import useSWR from 'swr'
 import Image from 'next/image'
 import styles from './Listing.module.css'
-import { Nft } from '../api/nft/helpers'
+import { Nft } from '@kairosnfts/dapp'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -38,7 +38,7 @@ export default function Listing() {
             href={`/care/${bonsai.id}`}
           >
             <Image
-              src={bonsai?.metadataPatch?.image}
+              src={bonsai?.metadataPatch?.image!}
               alt="Your bonsai tree"
               width={512}
               height={512}

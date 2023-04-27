@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
-import { Nft } from '../../api/nft/helpers'
+import { Nft } from '@kairosnfts/dapp'
 
 const fetchNft = async () => {
   return await fetch('/api/nft', {
