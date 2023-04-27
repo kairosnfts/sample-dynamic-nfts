@@ -97,7 +97,7 @@ export default function Details() {
         {attributes?.find(
           (attribute) =>
             attribute?.trait_type === 'Bonsai Stage' &&
-            attribute.value === 'Mature'
+            attribute?.value === 'Mature'
         ) && <ResetButton />}
       </div>
     </div>

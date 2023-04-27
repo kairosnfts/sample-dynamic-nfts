@@ -5,9 +5,9 @@ import { KairosEnv, KairosProvider } from '@kairosnfts/dapp'
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <KairosProvider
-      env={KairosEnv.staging} // This is the environment you want to use. It can be 'staging', 'production' or 'development', it will determine the server you will connect to
+      env={KairosEnv.staging} // This is the Kairos environment you want to use
       hasLogs={true}
-      slug={process.env.NEXT_PUBLIC_KAIROS_COLLECTION_SLUG!} // This is the slug of the storefront you created in the Kairos dashboard
+      slug={process.env.NEXT_PUBLIC_KAIROS_COLLECTION_SLUG!} // Kairos storefront slug
       onLogIn={() => {
         console.log('Kairos log in')
       }}
