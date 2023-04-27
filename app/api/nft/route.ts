@@ -8,7 +8,7 @@ import {
   stageImage,
   TreeStage,
 } from './data'
-import { auth, getNftsOfUser, getNextStage, updateNft } from './helpers'
+import { auth, getNftsOfUser, getNextStage, updateNft, getNft } from './helpers'
 import { CreateNftQuery, DeployNftQuery } from './queries'
 
 /**
@@ -23,53 +23,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const nfts = await getNftsOfUser(sessionToken)
 
   return NextResponse.json(nfts.map((d: any) => d.nft))
-}
-
-/**
- * This is the route that will be called when you want to update an NFT's metadata
- * this will not redeploy the NFT, it will only update the content of the metadata
- * without having to make any transaction on the blockchain
- */
-export async function PATCH(req: NextRequest): Promise<NextResponse> {
-  const body = await req.json()
-  const { nftId, reset } = body
-
-  const sessionToken = req.cookies.get('__kairosSessionToken')?.value
-  if (!sessionToken) {
-    throw new Error('No session token found')
-  }
-
-  const nfts = await getNftsOfUser(sessionToken)
-  // Find the NFT among all NFTs this user owns that we want to update by its ID
-  const nft = nfts.find((d: any) => d.nft.id === nftId)
-  if (!nft) {
-    throw new Error('NFT not found')
-  }
-
-  /**
-   * In our example of a Bonsai NFT, we have a linear progression of tree stages.
-   * You can provide your own logic here to determine the next stage of your NFT
-   */
-  let nextStage
-  if (reset) {
-    nextStage = TreeStage.SEED
-  } else {
-    nextStage = getNextStage(nft.nft!)
-  }
-
-  if (!nextStage) {
-    // No more progression. We're at the last stage
-    return NextResponse.json({ nftId })
-  }
-
-  await updateNft({
-    nftId,
-    stage: nextStage,
-    description: stageDescription[nextStage],
-    image: stageImage[nextStage],
-  })
-
-  return NextResponse.json({ nftId })
 }
 
 /**

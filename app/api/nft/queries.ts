@@ -39,6 +39,30 @@ export const DeployNftQuery = gql`
 `
 
 /**
+ * Get a single NFT from the Kairos server by ID
+ */
+export const GetNftQuery = gql`
+  query nft($nftId: UUID!) {
+    nft(nftId: $nftId) {
+      id
+      name
+      description
+      collectionId
+      mintPubkey
+      metadataPatch {
+        description
+        external_url
+        image
+        attributes {
+          trait_type
+          value
+        }
+      }
+    }
+  }
+`
+
+/**
  * Get the NFTs owned by logged-in user on the Kairos server
  * https://api.kairos.art/#query-collectorOwnershipsByCollection
  */
