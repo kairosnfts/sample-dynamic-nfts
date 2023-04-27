@@ -8,8 +8,9 @@ import {
   stageImage,
   TreeStage,
 } from './data'
-import { auth, getNftsOfUser, getNextStage, updateNft, getNft } from './helpers'
+import { auth, getNftsOfUser, updateNft } from './helpers'
 import { CreateNftQuery, DeployNftQuery } from './queries'
+import { Mutation } from '@kairosnfts/dapp'
 
 /**
  * This is the route will return all the NFTs and their metadata that the user owns
@@ -33,7 +34,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   /**
    * STEP 1 - Create an NFT on the Kairos server
    */
-  const createResponse: any = await request(
+  const createResponse: Mutation = await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
     CreateNftQuery,
     {
@@ -50,8 +51,17 @@ export async function POST(req: Request): Promise<NextResponse> {
   )
 
   const createData = createResponse?.createOneOfOneNft
-  if (createData.__typename !== 'CreateNftRes') {
-    throw new Error(createData.message)
+  if (!createData || createData.__typename !== 'CreateNftRes') {
+    const errorMsg =
+      createData.__typename === 'CreateOneOfOneNftError'
+        ? createData?.message
+        : 'NFT creation failed'
+    throw new Error(errorMsg)
+  }
+
+  const nftId = createData.nft.id
+  if (!nftId) {
+    throw new Error('No NFT ID created')
   }
 
   /**
@@ -63,7 +73,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     DeployNftQuery,
     {
       input: {
-        nftId: createData.nft.id,
+        nftId: nftId,
         isBlocking: true, // If true, the request will wait until the NFT is deployed
       },
     },
@@ -77,11 +87,11 @@ export async function POST(req: Request): Promise<NextResponse> {
    */
   const stage = TreeStage.SEED
   await updateNft({
-    nftId: createData.nft.id,
+    nftId: nftId,
     stage: stage,
     description: stageDescription[stage],
     image: stageImage[stage],
   })
 
-  return NextResponse.json({ nftId: createData.nft.id })
+  return NextResponse.json({ nftId: nftId })
 }
