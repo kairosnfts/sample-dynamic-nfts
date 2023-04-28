@@ -39,7 +39,14 @@ export default function Navigation() {
       <div className={styles.navItem}>
         {showBack && (
           <Link href="/" className="noStyle">
-            ↩ Back
+            <Image
+              src="/images/back-arrow.svg"
+              alt=""
+              width="10"
+              height="10"
+              priority
+            />{' '}
+            Back
           </Link>
         )}
       </div>
@@ -70,6 +77,7 @@ export default function Navigation() {
             alt="Kairos Logo"
             width={100}
             height={17}
+            priority
           />
         </Link>
       </div>
