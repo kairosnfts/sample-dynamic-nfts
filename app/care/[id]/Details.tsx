@@ -9,7 +9,6 @@ import { Nft } from '@kairosnfts/dapp'
 import Link from 'next/link'
 
 const fetchNft = async (url: string) => {
-  console.log('url', url)
   return await fetch(url, {
     method: 'GET',
   }).then((res) => res.json())

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getNft, getNextStage, updateNft } from '../helpers'
+import { getNft, getNextStage, updateNft, getNftsOfUser } from '../helpers'
 import { stageDescription, stageImage, TreeStage } from '../data'
+import { Nft } from '@kairosnfts/dapp'
 
 /**
  * This is the route will return the NFT and its metadata
@@ -43,9 +44,17 @@ export async function PATCH(
   const body = await req.json()
   const { reset } = body
 
-  const nft = await getNft(nftId)
+  /** Logic to see if the user owns the NFT to be able to update it */
+  const sessionToken = req.cookies.get('__kairosSessionToken')?.value
+  if (!sessionToken) {
+    throw new Error('No session token found')
+  }
+
+  const nfts = await getNftsOfUser(sessionToken)
+  // Find the NFT among all NFTs this user owns that we want to update by its ID
+  const nft = nfts.find((d) => d?.nft?.id === nftId) as Nft
   if (!nft) {
-    throw new Error('NFT not found')
+    throw new Error('NFT not owned by user')
   }
 
   /**
