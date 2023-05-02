@@ -1,8 +1,9 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import useSWR from 'swr'
 import './globals.css'
 import styles from './Navigation.module.css'
 import { useContext } from 'react'
@@ -25,10 +26,25 @@ export const getEmailAbbr = (email: string) => {
   return emailBeforeAt.slice(0, 4) + ' ⋯ @' + emailAfterAt
 }
 
+const fetchNfts = async () => {
+  return await fetch('/api/nft', {
+    method: 'GET',
+  }).then((res) => res.json())
+}
+
 export default function Navigation() {
+  const router = useRouter()
   const pathname = usePathname()
   const showBack = pathname !== '/'
   const { currentUser } = useContext(KairosContext)
+
+  const { data: nfts } = useSWR('/api/nft', fetchNfts)
+
+  const handleBack = () => {
+    const isDetailsPage = pathname.split('/')[1] === 'care'
+    // Are we on a details page and the user has more than one bonsai?
+    isDetailsPage && nfts?.length > 1 ? router.push('/shelf') : router.push('/')
+  }
 
   const handleLogOut = async () => {
     await Kairos.logOut()
@@ -36,11 +52,21 @@ export default function Navigation() {
 
   return (
     <nav className={styles.nav}>
-      <div className={styles.navItem}>
+      <div
+        className={`${styles.navItem} ${styles.backButton}`}
+        onClick={handleBack}
+      >
         {showBack && (
-          <Link href="/" className="noStyle">
-            ↩ Back
-          </Link>
+          <>
+            <Image
+              src="/images/back-arrow.svg"
+              alt=""
+              width="10"
+              height="10"
+              priority
+            />{' '}
+            Back
+          </>
         )}
       </div>
 
@@ -70,6 +96,7 @@ export default function Navigation() {
             alt="Kairos Logo"
             width={100}
             height={17}
+            priority
           />
         </Link>
       </div>

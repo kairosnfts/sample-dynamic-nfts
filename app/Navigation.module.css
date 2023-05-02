@@ -15,6 +15,10 @@
   flex: 1;
 }
 
+.backButton {
+  cursor: pointer;
+}
+
 .centerNavItem {
   display: flex;
   justify-content: center;
