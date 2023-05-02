@@ -1,19 +1,11 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
-import { Nft } from '@kairosnfts/dapp'
-
-const fetchNft = async () => {
-  return await fetch('/api/nft', {
-    method: 'GET',
-  }).then((res) => res.json())
-}
 
 const updateMetadata = async (
   url: string,
-  { arg }: { arg: { nftId: string } }
+  { arg }: { arg: { reset?: boolean } }
 ) => {
   return await fetch(url, {
     method: 'PATCH',
@@ -23,14 +15,16 @@ const updateMetadata = async (
 
 export default function CareButton() {
   const { id } = useParams()
-  const { data } = useSWR('/api/nft', fetchNft)
-  const bonsai = data && data.find((nft: Nft) => nft.id === id)
-
-  const { trigger, isMutating } = useSWRMutation('/api/nft', updateMetadata)
+  const { trigger, isMutating } = useSWRMutation(
+    '/api/nft/' + id,
+    updateMetadata
+  )
 
   const handleClick = () => {
-    trigger({ nftId: bonsai?.id })
+    trigger({})
   }
+
+  if (!id) return null
 
   return (
     <button className="button" onClick={handleClick} disabled={isMutating}>

@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-const fetchNft = async () => {
+const fetchNfts = async () => {
   return await fetch('/api/nft', {
     method: 'GET',
   }).then((res) => res.json())
@@ -16,7 +16,7 @@ const fetchNft = async () => {
 
 export default function Listing() {
   const router = useRouter()
-  const { data } = useSWR('/api/nft', fetchNft)
+  const { data } = useSWR('/api/nft', fetchNfts)
 
   useEffect(() => {
     if (data?.length === 1) {

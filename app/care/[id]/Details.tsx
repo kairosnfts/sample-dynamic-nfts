@@ -8,15 +8,15 @@ import styles from './Details.module.css'
 import { Nft } from '@kairosnfts/dapp'
 import Link from 'next/link'
 
-const fetchNft = async () => {
-  return await fetch('/api/nft', {
+const fetchNft = async (url: string) => {
+  return await fetch(url, {
     method: 'GET',
   }).then((res) => res.json())
 }
 
 const updateMetadata = async (
   url: string,
-  { arg }: { arg: { nftId: string; reset: boolean } }
+  { arg }: { arg: { reset: boolean } }
 ) => {
   return await fetch(url, {
     method: 'PATCH',
@@ -26,14 +26,16 @@ const updateMetadata = async (
 
 export default function Details() {
   const { id } = useParams()
-  const { data, isLoading } = useSWR('/api/nft', fetchNft)
-  const bonsai = data && data.find((nft: Nft) => nft.id === id)
+  const { data: bonsai, isLoading } = useSWR(() => '/api/nft/' + id, fetchNft)
   const { attributes } = (bonsai?.metadataPatch as Nft['metadataPatch']) || {}
 
-  const { trigger, isMutating } = useSWRMutation('/api/nft', updateMetadata)
+  const { trigger, isMutating } = useSWRMutation(
+    '/api/nft/' + id,
+    updateMetadata
+  )
 
   const handleClick = () => {
-    trigger({ nftId: bonsai?.id, reset: true })
+    trigger({ reset: true })
   }
 
   const getOpenSeaUrl = () => {
