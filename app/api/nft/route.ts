@@ -10,7 +10,7 @@ import {
 } from './data'
 import { auth, getNftsOfUser, updateNft } from './helpers'
 import { CreateNftQuery, DeployNftQuery } from './queries'
-import { Mutation } from '@kairosnfts/dapp'
+import { CreateOneOfOneNft } from '@kairosnfts/dapp'
 
 /**
  * This is the route will return all the NFTs and their metadata that the user owns
@@ -34,21 +34,22 @@ export async function POST(req: Request): Promise<NextResponse> {
   /**
    * STEP 1 - Create an NFT on the Kairos server
    */
-  const createResponse: Mutation = await request(
-    process.env.NEXT_PUBLIC_KAIROS_API_URL!,
-    CreateNftQuery,
-    {
-      input: {
-        name: nftName,
-        description: nftDescription,
-        collectionId: process.env.KAIROS_COLLECTION_ID, // Keep this secret from the client!
-        price: nftPrice, // The price of the NFT (on-chain native currency)
+  const createResponse: { createOneOfOneNft: CreateOneOfOneNft } =
+    await request(
+      process.env.NEXT_PUBLIC_KAIROS_API_URL!,
+      CreateNftQuery,
+      {
+        input: {
+          name: nftName,
+          description: nftDescription,
+          collectionId: process.env.KAIROS_COLLECTION_ID, // Keep this secret from the client!
+          price: nftPrice, // The price of the NFT (on-chain native currency)
+        },
       },
-    },
-    {
-      Authorization: auth,
-    }
-  )
+      {
+        Authorization: auth,
+      }
+    )
 
   const createData = createResponse?.createOneOfOneNft
   if (!createData || createData.__typename !== 'CreateNftRes') {

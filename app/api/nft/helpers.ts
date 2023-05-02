@@ -1,14 +1,14 @@
 import { request } from 'graphql-request'
 import { TreeStage, treeStages } from './data'
 import { GetNftQuery, OwnershipsQuery, UpdateMetadataQuery } from './queries'
-import { Query, Nft } from '@kairosnfts/dapp'
+import { Nft, Ownership } from '@kairosnfts/dapp'
 
 export const auth = `Basic ${Buffer.from(
   process.env.KAIROS_API_KEY! // Keep this secret from the client!
 ).toString('base64')}`
 
 export const getNft = async (nftId: string) => {
-  const data: Query = await request(
+  const data: { nft: Nft } = await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
     GetNftQuery,
     {
@@ -27,7 +27,7 @@ export const getNft = async (nftId: string) => {
 }
 
 export const getNftsOfUser = async (sessionToken: string) => {
-  const data: Query = await request(
+  const data: { collectorOwnershipsByCollection: Ownership[] } = await request(
     process.env.NEXT_PUBLIC_KAIROS_API_URL!,
     OwnershipsQuery,
     {
