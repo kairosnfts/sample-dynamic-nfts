@@ -66,6 +66,7 @@ const createResponse: any = await request(
   }
 )
 ```
+
 The `CreateNftQuery` gql is found in [`queries.ts`](https://github.com/kairosnfts/sample-dynamic-nfts/blob/06fdb1c86d7970041e8aec40b6ac46697febdadf/app/api/nft/queries.ts), and you can reference the Kairos API options for this request in the [Kairos API definition for `CreateOneOfOneNft`](https://api.kairos.art/#mutation-createOneOfOneNft).
 
 The next step is to ask Kairos to deploy the newly created NFT to Kairos servers in order to obtain an `nftId`:
@@ -90,7 +91,7 @@ await request(
 )
 ```
 
-As this point, we have created what *will become the NFT* once a user mints it, but it has no metadata (and hasn't been minted by the user) yet. Next we'll add some initial metadata before minting it.
+As this point, we have created what _will become the NFT_ once a user mints it, but it has no metadata (and hasn't been minted by the user) yet. Next we'll add some initial metadata before minting it.
 
 ```js
 await updateNft({
@@ -103,17 +104,19 @@ await updateNft({
 
 The metadata for your application would be unique to your use case, or maybe you want no metadata to start. It's up to you!
 
-The final step is for the user to finalize the purchase from completed the steps in their crytpo wallet or filling out the credit card information. This is handled on the client-side of the application, back in [`BuyButton.tsx`](https://github.com/kairosnfts/sample-dynamic-nfts/blob/a80612d0958628f1a53ba6a79dc0070bad8dede2/app/plant/BuyButton.tsx) and is initiated once the above two steps have been completed successfully. 
+The final step is for the user to finalize the purchase from completed the steps in their crytpo wallet or filling out the credit card information. This is handled on the client-side of the application, back in [`BuyButton.tsx`](https://github.com/kairosnfts/sample-dynamic-nfts/blob/a80612d0958628f1a53ba6a79dc0070bad8dede2/app/plant/BuyButton.tsx) and is initiated once the above two steps have been completed successfully.
 
 ```js
 /**
  * STEP 3 - Initiate NFT purchase using the NFT ID from Kairos
- * This will open the purchase modal for the user to complete the purchase
+ * This will open the purchase route on the same tab
+ * after purchase completed, the user will be redirected to the route configured trough
+ * the Kairos dashboard.
  */
-await Kairos.startBid(result.nftId)
+Kairos.startBid(result.nftId)
 ```
 
-At this point, the user has completed the purchase and the NFT is minted on the blockchain. You can now direct the user to whatever page or action they should see next. 
+At this point, the user has completed the purchase and the NFT is minted on the blockchain.
 
 ### Displaying NFTs
 
@@ -141,7 +144,7 @@ Once you purchase an NFT bonsai, you can cultivate it to progress it to the next
 
 #### What's Happening Behind the Scenes
 
-We trigger a `PATCH` mutation on our API that handles the logic for our dynamic NFTs on the server-side. Our example simply finds the next available stage for the tree, and sends the next stage data to the Kairos API. 
+We trigger a `PATCH` mutation on our API that handles the logic for our dynamic NFTs on the server-side. Our example simply finds the next available stage for the tree, and sends the next stage data to the Kairos API.
 
 ```js
 await request(
@@ -188,7 +191,7 @@ Please take a look at the [Kairos API documentation for the `UpdateDynamicMetada
 
 Most NFT smart contracts don't include images or attributes directly on-chain. Rather, they link to other URLs that host that information. In this case, Kairos holds the "state" of the NFT metadata, which is linked from the smart contract. If you update the NFT metadata, and then use a [blockchain explorer](https://testnets.opensea.io/collection/bonsai-dynamic-nft), you will see the metadata referenced on-chain has updated with your changes.
 
-> **_NOTE:_** Some explorers and marketplaces, like Opensea, don't update metadata in real-time. Rather, they update on jobs that run periodically, so metadata changes may *seem* delayed, even if they aren't. In the case of Opensea, you can click on the three dots button in the top right of an NFT detail page to manually refresh the metadata. 
+> **_NOTE:_** Some explorers and marketplaces, like Opensea, don't update metadata in real-time. Rather, they update on jobs that run periodically, so metadata changes may _seem_ delayed, even if they aren't. In the case of Opensea, you can click on the three dots button in the top right of an NFT detail page to manually refresh the metadata.
 
 ## Support
 
